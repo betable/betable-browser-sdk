@@ -15,11 +15,7 @@ Usage
 
 Configure the Betable Browser SDK:
 
-    var betable = new Betable(
-        'https://api.betable.com/1.0'
-      , 'YOUR_GAME_ID'
-      , 'AN_ACCESS_TOKEN'
-    )
+    var betable = new Betable('YOUR_GAME_ID', 'AN_ACCESS_TOKEN')
 
 Each method takes two final arguments that are both functions: a `callback` which in case of success receives the parsed response structure and an `errback` which in case of failure receives the parsed error, description, and details.
 

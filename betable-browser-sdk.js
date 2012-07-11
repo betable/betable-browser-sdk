@@ -25,8 +25,8 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-function Betable(endpoint, gameId, accessToken) {
-    this.endpoint = endpoint
+function Betable(gameId, accessToken) {
+    this.endpoint = 'https://api.betable.com/1.0'
     this.gameId = gameId
     this.accessToken = accessToken
 }
