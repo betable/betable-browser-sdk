@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<meta charset="utf8">
+<script src="betable-browser-sdk.js"></script>
+<script>
+
+var betable = new Betable(
+    'https://api.betable.com/1.0'
+  , 'YOUR_GAME_ID'
+  , 'AN_ACCESS_TOKEN'
+)
+
+betable.account(
+    function(response) {
+        console.log(response)
+    }
+  , function(error) {
+        console.log(error)
+    }
+)
+
+betable.bet(
+    {
+        currency: 'GBP'
+      , economy: 'real'
+      , paylines: [[1, 1, 1, 1, 1]]
+      , wager: '0.01'
+    }
+  , function(response) {
+        console.log(response)
+    }
+  , function(error) {
+        console.log(error)
+    }
+)
+
+betable.canIGamble(
+    function(response) {
+        console.log(response)
+    }
+  , function(error) {
+        console.log(error)
+    }
+)
+
+betable.wallet(
+    function(response) {
+        console.log(response)
+    }
+  , function(error) {
+        console.log(error)
+    }
+)
+
+</script>
