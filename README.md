@@ -126,3 +126,8 @@ If a player needs to deposit, send them to <https://betable.com/#/wallet/deposit
     )
 
 The first argument and the response change form according to the type of game on which bets are being placed.  This example happens to be for a slot machine.  Full documentation of the available options may be found at <https://developers.betable.com/docs/>.
+
+Example
+-------
+
+<https://github.com/betable/betable-browser-sdk/blob/master/index.html>
