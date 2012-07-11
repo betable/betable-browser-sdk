@@ -23,11 +23,19 @@ Configure the Betable Browser SDK:
 
 Each method takes two final arguments that are both functions: a `callback` which in case of success receives the parsed response structure and an `errback` which in case of failure receives the parsed error, description, and details.
 
-Check whether the player can gamble:
+**Check whether the player can gamble**:
 
     betable.canIGamble(
         function(response) {
-            console.log(response)
+            //
+            // response:
+            //
+            //     {
+            //         "can_gamble": true
+            //       , "country": "Great Britain"
+            //       , "country_code": "GB"
+            //     }
+            //
         }
       , function(error) {
             console.log(error)
@@ -36,22 +44,45 @@ Check whether the player can gamble:
 
 This is not strictly necessary but it makes for a nicer player experience to tell players that can't gamble as early as possible.
 
-Get the player's account, which includes their first and last name:
+**Get the player's account, which includes their first and last name**:
 
     betable.account(
         function(response) {
-            console.log(response)
+            //
+            // response:
+            //
+            //     {
+            //         "id": "A4n7V5UL3gKx8ms2"
+            //       , "first_name": "Charles"
+            //       , "last_name": "Fey"
+            //     }
+            //
         }
       , function(error) {
             console.log(error)
         }
     )
 
-Get the player's wallet, which includes their real-money balance:
+**Get the player's wallet, which includes their real-money balance**:
 
     betable.wallet(
         function(response) {
-            console.log(response)
+            //
+            // response:
+            //
+            //     {
+            //       , "real": {
+            //             "balance": "0.00"
+            //           , "currency": "GBP"
+            //           , "economy": "real"
+            //         }
+            //       , "sandbox": {
+            //             "balance": "0.00"
+            //           , "currency": "GBP"
+            //           , "economy": "sandbox"
+            //         }
+            //     }
+            //
         }
       , function(error) {
             console.log(error)
@@ -60,7 +91,7 @@ Get the player's wallet, which includes their real-money balance:
 
 If a player needs to deposit, send them to <https://betable.com/#/wallet/deposit>.
 
-Place a bet:
+**Place a bet**:
 
     betable.bet(
         {
@@ -70,11 +101,32 @@ Place a bet:
           , wager: '0.01'
         }
       , function(response) {
-            console.log(response)
+            //
+            // response:
+            //
+            //     {
+            //       , "currency":"GBP"
+            //       , "outcomes": [
+            //             {
+            //                 "outcome": "win"
+            //               , "payline": [1, 1, 1, 1, 1]
+            //               , "payout":"0.05"
+            //               , "symbols":["A","B","A","B","A"]
+            //              }
+            //         ]
+            //       , "payout": "0.05"
+            //       , "stops": [3, 26, 18, 18, 1]
+            //       , "window": [
+            //             ["C", "C", "D", "A", "B"]
+            //           , ["A", "B", "A", "B", "A"]
+            //           , ["C", "A", "D", "B", "A"]
+            //         ]
+            //     }
+            //
         }
       , function(error) {
             console.log(error)
         }
     )
 
-The first argument changes form according to the type of game on which bets are being placed.  This example happens to be for a slot machine.  Full documentation of the available options may be found at <https://developers.betable.com/docs/>.
+The first argument and the response change form according to the type of game on which bets are being placed.  This example happens to be for a slot machine.  Full documentation of the available options may be found at <https://developers.betable.com/docs/>.
