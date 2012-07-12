@@ -77,10 +77,8 @@ Betable.prototype.xhr = function Betable_xhr(
         if (4 === xhr.readyState) {
             var response = JSON.parse(xhr.responseText)
             if (400 > xhr.status) {
-console.log('win')
                 callback(response)
             } else {
-console.log('fail')
                 errback(response)
             }
         }
