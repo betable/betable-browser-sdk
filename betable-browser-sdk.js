@@ -1,3 +1,4 @@
+;
 /*
  * Copyright (c) 2012, Betable Limited
  * All rights reserved.
@@ -91,3 +92,4 @@ console.log('fail')
         xhr.send()
     }
 }
+;
