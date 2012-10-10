@@ -29,6 +29,19 @@ betable.bet(
     }
 )
 
+betable.unbackedBet(
+    {
+        paylines: [[1, 1, 1, 1, 1]]
+      , wager: '0.01'
+    }
+  , function(response) {
+        console.log(response)
+    }
+  , function(error) {
+        console.log(error)
+    }
+)
+
 betable.canIGamble(
     function(response) {
         console.log(response)

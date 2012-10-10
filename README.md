@@ -127,6 +127,43 @@ If a player needs to deposit, send them to <https://betable.com/#/wallet/deposit
 
 The first argument and the response change form according to the type of game on which bets are being placed.  This example happens to be for a slot machine.  Full documentation of the available options may be found at <https://developers.betable.com/docs/>.
 
+**Place an unbacked bet**:
+
+    betable.unbackedBet(
+        {
+            paylines: [[1, 1, 1, 1, 1]]
+          , wager: '0.01'
+        }
+      , function(response) {
+            //
+            // response:
+            //
+            //     {
+            //       , "outcomes": [
+            //             {
+            //                 "outcome": "win"
+            //               , "payline": [1, 1, 1, 1, 1]
+            //               , "payout":"0.05"
+            //               , "symbols":["A","B","A","B","A"]
+            //              }
+            //         ]
+            //       , "payout": "0.05"
+            //       , "stops": [3, 26, 18, 18, 1]
+            //       , "window": [
+            //             ["C", "C", "D", "A", "B"]
+            //           , ["A", "B", "A", "B", "A"]
+            //           , ["C", "A", "D", "B", "A"]
+            //         ]
+            //     }
+            //
+        }
+      , function(error) {
+            console.log(error)
+        }
+    )
+
+The first argument and the response change form according to the type of game on which bets are being placed.  This example happens to be for a slot machine.  Full documentation of the available options may be found at <https://developers.betable.com/docs/>.
+
 **Bet with credits**
 
     betable.betCredits(
