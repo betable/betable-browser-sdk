@@ -97,7 +97,7 @@ Betable.prototype.xhr = function Betable_xhr(
         if (4 === xhr.readyState) {
             var response = JSON.parse(xhr.responseText)
             if (400 > xhr.status) {
-                callback(response)
+                callback(response,xhr)
             } else {
                 errback(response)
             }
