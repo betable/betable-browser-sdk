@@ -46,20 +46,20 @@ Betable.prototype.bet = function Betable_bet(options, callback, errback) {
     )
 }
 
-Betable.prototype.unbackedBet = function Betable_unbackedBet(options, callback, errback) {
+Betable.prototype.betCredits = function Betable_betCredits(gameId, options, callback, errback) {
     this.xhr(
         'POST'
-      , '/games/' + this.gameId + '/unbacked-bet'
+      , '/games/' + this.gameId + '/' + gameId + '/bet'
       , options
       , callback
       , errback
     )
 }
 
-Betable.prototype.betCredits = function Betable_bet_credits(gameId, options, callback, errback) {
+Betable.prototype.unbackedBet = function Betable_unbackedBet(options, callback, errback) {
     this.xhr(
         'POST'
-      , '/games/' + this.gameId + '/' + gameId + '/bet'
+      , '/games/' + this.gameId + '/unbacked-bet'
       , options
       , callback
       , errback
@@ -97,7 +97,7 @@ Betable.prototype.xhr = function Betable_xhr(
         if (4 === xhr.readyState) {
             var response = JSON.parse(xhr.responseText)
             if (400 > xhr.status) {
-                callback(response,xhr)
+                callback(response, xhr)
             } else {
                 errback(response)
             }
