@@ -71,7 +71,7 @@ Betable.prototype.canIGamble = function Betable_canIGamble(callback, errback) {
 }
 
 Betable.prototype.wallet = function Betable_wallet(callback, errback) {
-    this.xhr('GET', '/account/wallet', void 0, callback, errback)
+    this.xhr('GET', '/account/wallet', {'game_id': this.gameId}, callback, errback)
 }
 
 Betable.prototype.xhr = function Betable_xhr(
@@ -88,11 +88,13 @@ Betable.prototype.xhr = function Betable_xhr(
         try { return new ActiveXObject('Microsoft.XMLHTTP') } catch (e) {}
         throw new Error('no XMLHttpRequest')
     }()
-    xhr.open(
-        method
-      , this.endpoint + path + '?access_token=' + this.accessToken
-      , true
-    )
+    var path = this.endpoint + path + '?access_token=' + this.accessToken
+    if ('GET' === method && body) {
+        Object.keys(body).forEach(function(key) {
+            path += '&' + encodeURIComponent(key) + '=' + encodeURIComponent(body[key])
+        })
+    }
+    xhr.open(method, path, true)
     xhr.onreadystatechange = function Betable_account_onreadystatechange() {
         if (4 === xhr.readyState) {
             var response = JSON.parse(xhr.responseText)
@@ -103,7 +105,7 @@ Betable.prototype.xhr = function Betable_xhr(
             }
         }
     }
-    if (body) {
+    if ('POST' === method && body) {
         xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8')
         xhr.send(JSON.stringify(body))
     } else {
