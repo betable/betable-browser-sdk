@@ -71,7 +71,7 @@ Betable.prototype.canIGamble = function Betable_canIGamble(callback, errback) {
 }
 
 Betable.prototype.wallet = function Betable_wallet(callback, errback) {
-    this.xhr('GET', '/account/wallet', {'game_id': this.gameId}, callback, errback)
+    this.xhr('GET', '/account/wallet', {'games': this.gameId}, callback, errback)
 }
 
 Betable.prototype.xhr = function Betable_xhr(
