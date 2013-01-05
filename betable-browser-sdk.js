@@ -43,6 +43,7 @@ Betable.prototype.bet = function Betable_bet(options, callback, errback) {
       , options
       , callback
       , errback
+      , true
     )
 }
 
@@ -80,8 +81,10 @@ Betable.prototype.xhr = function Betable_xhr(
   , body
   , callback
   , errback
+  , includeContentType
 ) {
     var xhr = function() {
+        try { return new XDomainRequest() } catch (e) {}
         try { return new XMLHttpRequest() } catch (e) {}
         try { return new ActiveXObject('Msxml2.XMLHTTP.6.0') } catch (e) {}
         try { return new ActiveXObject('Msxml2.XMLHTTP.3.0') } catch (e) {}
@@ -89,24 +92,37 @@ Betable.prototype.xhr = function Betable_xhr(
         throw new Error('no XMLHttpRequest')
     }()
     var path = this.endpoint + path + '?access_token=' + this.accessToken
+      , is_xdr = typeof XDomainRequest === 'object'
+      , xhr_args = [method, path]
+
     if ('GET' === method && body) {
         Object.keys(body).forEach(function(key) {
             path += '&' + encodeURIComponent(key) + '=' + encodeURIComponent(body[key])
         })
     }
-    xhr.open(method, path, true)
-    xhr.onreadystatechange = function Betable_account_onreadystatechange() {
-        if (4 === xhr.readyState) {
-            var response = JSON.parse(xhr.responseText)
-            if (400 > xhr.status) {
-                callback(response, xhr)
-            } else {
-                errback(response)
+
+    if(!is_xdr)            xhr_args.push(true)
+    if(includeContentType) xhr_args[1] = xhr_args[1] + '&content_type=application/json'
+
+    xhr.open.apply(xhr, xhr_args)
+
+    if(is_xdr) {
+        xhr.onload = function() { callback(JSON.parse(xhr.responseText)) }
+        xhr.onerror = function() { errback(JSON.parse(xhr.responseText)) }
+    } else {
+        xhr.onreadystatechange = function Betable_account_onreadystatechange() {
+            if (4 === xhr.readyState) {
+                var response = JSON.parse(xhr.responseText)
+                if (400 > xhr.status) {
+                    callback(response,xhr)
+                } else {
+                    errback(response)
+                }
             }
         }
     }
     if ('POST' === method && body) {
-        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8')
+        if(!is_xdr) xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8')
         xhr.send(JSON.stringify(body))
     } else {
         xhr.send()

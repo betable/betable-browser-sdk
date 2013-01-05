@@ -10,6 +10,10 @@ Requirements
 
 The Betable Browser SDK requires browsers modern enough to support `XMLHttpRequest` in some form and the native `JSON.parse` method.  Specifically, these are Chrome 3+, Firefox 3+, and IE 8+.
 
+In order to support browsers that do not have `JSON.parse` or `JSON.stringify` please include Crockford's JSON2 <https://github.com/douglascrockford/JSON-js/blob/master/json2.js> on your webpage.
+
+Due to a limitation of Internet Explorer 8 and 9, Cross-site requests are made using XDomainRequests. This requires that your website use SSL.
+
 Usage
 -----
 
