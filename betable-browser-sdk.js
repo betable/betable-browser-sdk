@@ -71,8 +71,13 @@ Betable.prototype.canIGamble = function Betable_canIGamble(callback, errback) {
     this.xhr('GET', '/can-i-gamble', void 0, callback, errback)
 }
 
-Betable.prototype.wallet = function Betable_wallet(callback, errback) {
-    this.xhr('GET', '/account/wallet', {'games': this.gameId}, callback, errback)
+Betable.prototype.wallet = function Betable_wallet(options, callback, errback) {
+  if(typeof options === 'function') {
+      this.xhr('GET', '/account/wallet', {'games': this.gameId}, options, callback)
+  } else {
+      var games = options && options.gameIds ? {'games': options.gameIds.join(',')} : {}
+      this.xhr('GET', '/account/wallet', games, callback, errback)
+  }
 }
 
 Betable.prototype.xhr = function Betable_xhr(
