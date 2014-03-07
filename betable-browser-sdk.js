@@ -112,7 +112,7 @@ Betable.prototype.xhr = function Betable_xhr(
 
     if ('GET' === method && body) {
         Object.keys(body).forEach(function(key) {
-            path += '&' + encodeURIComponent(key) + '=' + encodeURIComponent(body[key])
+            xhr_args[1] += '&' + encodeURIComponent(key) + '=' + encodeURIComponent(body[key])
         })
     }
 
