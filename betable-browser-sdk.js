@@ -107,7 +107,7 @@ Betable.prototype.xhr = function Betable_xhr(
         throw new Error('no XMLHttpRequest')
     }()
     var path = this.endpoint + path + '?access_token=' + this.accessToken
-      , is_xdr = typeof XDomainRequest === 'object'
+      , is_xdr = typeof XDomainRequest === 'function'
       , xhr_args = [method, path]
 
     if ('GET' === method && body) {
@@ -123,7 +123,8 @@ Betable.prototype.xhr = function Betable_xhr(
 
     if(is_xdr) {
         xhr.onload = function() { callback(JSON.parse(xhr.responseText)) }
-        xhr.onerror = function() { errback(JSON.parse(xhr.responseText)) }
+        xhr.onerror = xhr.ontimeout = function() { errback(JSON.parse(xhr.responseText)) }
+        xhr.onprogress = function() {}
     } else {
         xhr.onreadystatechange = function Betable_account_onreadystatechange() {
             if (4 === xhr.readyState) {
