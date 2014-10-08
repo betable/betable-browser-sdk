@@ -54,6 +54,7 @@ Betable.prototype.betCredits = function Betable_betCredits(gameId, options, call
       , options
       , callback
       , errback
+      , true
     )
 }
 
