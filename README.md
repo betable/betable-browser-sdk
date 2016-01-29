@@ -1,3 +1,5 @@
+*This SDK is deprecated. Please use the [Betable Canvas SDK](https://github.com/betable/betable-canvas-sdk).*
+
 Betable Browser SDK
 ===================
 
